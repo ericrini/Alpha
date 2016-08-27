@@ -15,7 +15,7 @@ window.Alpha = window.Alpha || {};
         this.actors = [];
         this.fps = 0;
 
-        document.addEventListener('ready', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             document.body.appendChild(_this.canvas);
         });
     };

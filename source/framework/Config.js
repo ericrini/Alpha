@@ -30,7 +30,7 @@ window.Alpha = window.Alpha || {};
     Alpha.Config.prototype.initialize = function () {
         var _this = this;
 
-        document.addEventListener('ready', function () {
+        document.addEventListener('DOMContentLoaded', function () {
             _this.element = _this.getElement();
             document.body.appendChild(_this.element);
         });
