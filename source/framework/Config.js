@@ -9,12 +9,17 @@ window.Alpha = window.Alpha || {};
         this.waitingForRelease = false;
     };
 
-    Alpha.Config.prototype.define = function (name, type, value, options) {
+    Alpha.Config.prototype.define = function (name, type, value, options, hide) {
         this.properties[name] = {
             name: name,
             type: type,
             options: options,
-            value: value
+            value: value,
+            hide: !!hide
+        };
+
+        if (this.element) {
+            this.element = this.getElement();
         }
     };
 
@@ -23,7 +28,12 @@ window.Alpha = window.Alpha || {};
     };
 
     Alpha.Config.prototype.initialize = function () {
+        var _this = this;
 
+        document.addEventListener('ready', function () {
+            _this.element = _this.getElement();
+            document.body.appendChild(_this.element);
+        });
     };
 
     Alpha.Config.prototype.update = function (game) {
@@ -58,8 +68,11 @@ window.Alpha = window.Alpha || {};
 
         for (var name in this.properties) {
             var property = this.properties[name];
-            var element = createField(property);
-            container.appendChild(element);
+
+            if (!property.hide) {
+                var element = createField(property);
+                container.appendChild(element);
+            }
         }
 
         return container;
@@ -92,9 +105,9 @@ window.Alpha = window.Alpha || {};
         input.setAttribute('value', property.value);
         input.setAttribute('min', property.options.min);
         input.setAttribute('max', property.options.max);
-        input.addEventListener('change', function (event) {
+        input.addEventListener('input', function (event) {
             console.log('Changed "' + property.name + '" from "' + property.value + '" to "' + event.target.value + '".');
-            property.value = event.target.value;
+            property.value = Number(event.target.value);
         });
         return input;
     }
