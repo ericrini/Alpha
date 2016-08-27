@@ -9,6 +9,7 @@ gulp.task('webserver', function() {
                 path: './source',
                 enable: true
             },
-            open: 'http://localhost:8000/index.html'
+            open: 'http://localhost/index.html',
+            port: 80
         }));
 });
