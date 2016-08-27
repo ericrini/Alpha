@@ -1,2 +1,2 @@
 # Alpha
-Canvas game framework.
+Alpha is canvas framework for making 2D browser games.
