@@ -12,8 +12,6 @@ var sequence = require('run-sequence');
 var clean = require('gulp-clean');
 var watch = require('gulp-watch');
 
-var MARKUP_GLOB = './source/**/*.html';
-var SCRIPT_GLOB = './source/**/*.js';
 var TEST_GLOB = './source/**/*.spec';
 var OUTPUT_PATH = './distribution';
 
@@ -22,19 +20,17 @@ gulp.task('default', function (callback) {
 });
 
 gulp.task('test', function() {
-    return gulp.src([
-        TEST_GLOB
-    ])
-    .pipe(jasmine({
-        verbose: true,
-        includeStackTrace: true,
-        timeout: 100,
-        errorOnFail: true
-    }))
+    return gulp.src(TEST_GLOB)
+        .pipe(jasmine({
+            verbose: true,
+            includeStackTrace: true,
+            timeout: 100,
+            errorOnFail: true
+        }))
 });
 
 gulp.task('build', function (callback) {
-    sequence('build:clean', ['build:copy', 'build:bundle'], callback);
+    sequence('build:clean', ['build:bundle', 'build:copy'], callback);
 });
 
 gulp.task('build:clean', function () {
@@ -43,19 +39,19 @@ gulp.task('build:clean', function () {
 });
 
 gulp.task('build:copy', function () {
-    return gulp.src(MARKUP_GLOB)
-        .pipe(gulp.dest(OUTPUT_PATH));
+    return gulp.src('./source/demos/**')
+        .pipe(gulp.dest('./distribution/demos'));
 });
 
 
 gulp.task('build:bundle', function () {
     var definition = browserify({
-        entries: './source/demo.js',
+        entries: './source/globals.js',
         debug: true
     });
 
     return definition.bundle()
-        .pipe(source('demo.js'))
+        .pipe(source('alpha.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
         .pipe(uglify())
@@ -65,12 +61,14 @@ gulp.task('build:bundle', function () {
 });
 
 gulp.task('server', function() {
-    watch(TEST_GLOB, function () {
-        return gulp.run('test');
+    sequence('default');
+
+    watch('./source/**/*', function () {
+        sequence('default');
     });
 
-    watch(SCRIPT_GLOB, function () {
-        return gulp.run('default');
+    watch(TEST_GLOB, function () {
+        sequence('test');
     });
 
     return gulp.src('./distribution')
@@ -80,7 +78,6 @@ gulp.task('server', function() {
                 path: OUTPUT_PATH,
                 enable: true
             },
-            open: 'http://127.0.0.1:8000/demo.html',
             host: '0.0.0.0',
             port: 8000
         }));

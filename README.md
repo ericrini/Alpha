@@ -34,7 +34,8 @@ npm install
 ```
 
 Once you have everything installed, the following command will watch the source files and run continuous tests and
-builds as source files are modified. It will also launch a small http server to run the distributable artifact.
+builds as source files are modified. It will also launch a small http server at http://0.0.0.0:8000/demos to run the
+included demo projects.
 
 ```
 gulp server

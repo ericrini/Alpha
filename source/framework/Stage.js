@@ -11,28 +11,17 @@ var Stage = function (game) {
     this.context = this.canvas.getContext('2d');
     this.actors = [];
     this.fps = 0;
-    this.scenes = [];
 
     document.addEventListener('DOMContentLoaded', function () {
         document.body.appendChild(_this.canvas);
     });
 };
 
-Stage.prototype.defineScene = function (name, strategy) {
-    this.scenes[name] = strategy;
-};
-
-Stage.prototype.loadScene = function (name) {
-    console.log('Transitioning to scene: "' + name + '".');
-    this.clear();
-    this.scenes[name](this, this.game);
-};
-
 Stage.prototype.addActor = function (actor) {
     //console.log('add actor', actor);
 
-    if (actor.initialize) {
-        actor.initialize(this.game);
+    if (actor.init) {
+        actor.init(this.game);
     }
 
     var myZ = actor.z || 0;
