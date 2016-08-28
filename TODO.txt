@@ -1,0 +1,11 @@
+- Add a logging component.
+- Add "scene" to stage. Can change entire stage to a new scene.
+- Consolidate the stats, log, config components into a debug overlay.
+- Add a separate coordinate system for each actor.
+- Add support for sprites to the actor.
+- Rename config to constants. Define all constants in one place.
+- Something something modules. Browserify?
+
+
+NOTES:
+https://jsfiddle.net/bbz5s183/1/
