@@ -1,7 +1,6 @@
 Features
-- Add an Actor class to extend.
-- Split the framework apart from the game logic.
 - Separate the actor coordinate system from the world coordinate system.
+- Add an Actor class to extend.
 - Add bounding boxes and collision detection.
 
 Technical Debt
@@ -12,6 +11,7 @@ Technical Debt
 - Defining and accessing constants is too verbose.
 
 Finished Work
+- Split the framework apart from the game logic.
 - Move the framework components into Browserify.
 - Get a unit test runner working.
 - Add "scene" concept to the Stage class.
