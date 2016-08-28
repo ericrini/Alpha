@@ -1,3 +1,5 @@
 .idea
 node_modules
-source/specRunner.html
+distribution
+npm
+npm-debug.log
