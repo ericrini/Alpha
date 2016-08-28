@@ -1,11 +1,20 @@
-- Add a logging component.
-- Add "scene" to stage. Can change entire stage to a new scene.
-- Consolidate the stats, log, config components into a debug overlay.
-- Add a separate coordinate system for each actor.
-- Add support for sprites to the actor.
-- Rename config to constants. Define all constants in one place.
-- Something something modules. Browserify?
+Features
+- Add an Actor class to extend.
+- Split the framework apart from the game logic.
+- Separate the actor coordinate system from the world coordinate system.
+- Add bounding boxes and collision detection.
 
+Technical Debt
+- Move the "scene" concept from the Stage class to the Game class.
+- Add a logging\console component.
+- Consolidate the stats, log, config components into a debug overlay.
+- Add support for sprites to the actor.
+- Defining and accessing constants is too verbose.
+
+Finished Work
+- Move the framework components into Browserify.
+- Get a unit test runner working.
+- Add "scene" concept to the Stage class.
 
 NOTES:
 https://jsfiddle.net/bbz5s183/1/

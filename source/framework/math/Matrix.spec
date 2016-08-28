@@ -3,7 +3,7 @@ describe('The Matrix', function () {
 
     var Matrix = require('./Matrix');
     var Point = require('./Point');
-    var MockCanvas = require('../../mocks/MockCanvas');
+    var MockCanvas = require('../../mocks/Canvas');
 
     it('can be constructed', function () {
         var matrix = new Matrix();

@@ -24,7 +24,7 @@ Config.prototype.get = function (name) {
     return this.properties[name].value;
 };
 
-Config.prototype.initialize = function () {
+Config.prototype.init = function () {
     var _this = this;
 
     document.addEventListener('DOMContentLoaded', function () {

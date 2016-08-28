@@ -14,6 +14,18 @@ var Game = function () {
 
     this.config = new Config();
     this.stage.addActor(this.config);
+
+    this.scenes = [];
+};
+
+Game.prototype.defineScene = function (name, strategy) {
+    this.scenes[name] = strategy;
+};
+
+Game.prototype.loadScene = function (name) {
+    console.log('Transitioning to scene: "' + name + '".');
+    this.stage.clear();
+    this.scenes[name](this.stage);
 };
 
 Game.prototype.start = function () {
