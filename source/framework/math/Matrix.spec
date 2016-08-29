@@ -56,10 +56,10 @@ describe('The Matrix', function () {
         var matrix1 = new Matrix(2, 3, 4, 5, 6, 7);
         var matrix2 = matrix1.translate(8, 9);
 
-        expect(matrix2.xScale).toBe(0);
-        expect(matrix2.xSkew).toBe(0);
-        expect(matrix2.ySkew).toBe(0);
-        expect(matrix2.yScale).toBe(0);
+        expect(matrix2.xScale).toBe(2);
+        expect(matrix2.xSkew).toBe(3);
+        expect(matrix2.ySkew).toBe(4);
+        expect(matrix2.yScale).toBe(5);
         expect(matrix2.x).toBe(58);
         expect(matrix2.y).toBe(76);
     });
@@ -80,10 +80,10 @@ describe('The Matrix', function () {
         var matrix1 = new Matrix(2, 3, 4, 5, 6, 7);
         var matrix2 = matrix1.clockwise(45);
 
-        expect(matrix2.xScale).toBe(0);
-        expect(matrix2.xSkew).toBe(0);
-        expect(matrix2.ySkew).toBe(0);
-        expect(matrix2.yScale).toBe(0);
+        expect(matrix2.xScale).toBe(-1.4142135623730947);
+        expect(matrix2.xSkew).toBe(-1.4142135623730945);
+        expect(matrix2.ySkew).toBe(4.242640687119286);
+        expect(matrix2.yScale).toBe(5.65685424949238);
         expect(matrix2.x).toBe(6);
         expect(matrix2.y).toBe(7);
     });
@@ -92,36 +92,36 @@ describe('The Matrix', function () {
         var matrix1 = new Matrix(2, 3, 4, 5, 6, 7);
         var matrix2 = matrix1.clockwise(45, 8, 9);
 
-        expect(matrix2.xScale).toBe(0);
-        expect(matrix2.xSkew).toBe(0);
-        expect(matrix2.ySkew).toBe(0);
-        expect(matrix2.yScale).toBe(0);
-        expect(matrix2.x).toBe(58);
-        expect(matrix2.y).toBe(76);
+        expect(matrix2.xScale).toBe(-1.4142135623730947);
+        expect(matrix2.xSkew).toBe(-1.4142135623730945);
+        expect(matrix2.ySkew).toBe(4.242640687119286);
+        expect(matrix2.yScale).toBe(5.65685424949238);
+        expect(matrix2.x).toBe(31.12994231491119);
+        expect(matrix2.y).toBe(36.40202025355333);
     });
 
     it('can rotate a Matrix counterclockwise', function () {
         var matrix1 = new Matrix(2, 3, 4, 5, 6, 7);
         var matrix2 = matrix1.counterclockwise(45);
 
-        expect(matrix2.xScale).toBe(0);
-        expect(matrix2.xSkew).toBe(0);
-        expect(matrix2.ySkew).toBe(0);
-        expect(matrix2.yScale).toBe(0);
-        expect(matrix2.x).toBe(6);
-        expect(matrix2.y).toBe(7);
+        expect(matrix2.xScale).toBe(12.727922061357855);
+        expect(matrix2.xSkew).toBe(15.556349186104045);
+        expect(matrix2.ySkew).toBe(24.041630560342618);
+        expect(matrix2.yScale).toBe(29.698484809834994);
+        expect(matrix2.x).toBe(41.35533905932738);
+        expect(matrix2.y).toBe(50.840620433565945);
     });
 
     it('can rotate a Matrix counterclockwise around a specific origin', function () {
         var matrix1 = new Matrix(2, 3, 4, 5, 6, 7);
         var matrix2 = matrix1.counterclockwise(45, 8, 9);
 
-        expect(matrix2.xScale).toBe(0);
-        expect(matrix2.xSkew).toBe(0);
-        expect(matrix2.ySkew).toBe(0);
-        expect(matrix2.yScale).toBe(0);
-        expect(matrix2.x).toBe(58);
-        expect(matrix2.y).toBe(76);
+        expect(matrix2.xScale).toBe(12.727922061357855);
+        expect(matrix2.xSkew).toBe(15.556349186104045);
+        expect(matrix2.ySkew).toBe(24.041630560342618);
+        expect(matrix2.yScale).toBe(29.698484809834994);
+        expect(matrix2.x).toBe(-224.84271247461902);
+        expect(matrix2.y).toBe(-271.8965363437814);
     });
 
     it('can find the dot product of a Matrix and a Point', function () {
@@ -129,8 +129,8 @@ describe('The Matrix', function () {
         var point1 = new Point(8, 9);
         var point2 = matrix.transform(point1);
 
-        expect(point2.x).toBe(52);
-        expect(point2.y).toBe(69);
+        expect(point2.x).toBe(58);
+        expect(point2.y).toBe(76);
     });
 
     it('can apply the transform to a canvas', function () {
@@ -141,10 +141,10 @@ describe('The Matrix', function () {
         spyOn(context, 'setTransform');
         spyOn(context, 'transform');
 
-        matrix.apply(context);
+        matrix.apply(context, true);
         expect(context.transform).toHaveBeenCalledWith(1, 0, 0, 1, 0, 0);
 
-        matrix.apply(context, true);
+        matrix.apply(context);
         expect(context.setTransform).toHaveBeenCalledWith(1, 0, 0, 1, 0, 0);
     });
 });

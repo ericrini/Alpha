@@ -57,7 +57,7 @@ Matrix.prototype.scale = function (x, y) {
  * @returns {Matrix} A new Matrix object.
  */
 Matrix.prototype.translate = function (x, y) {
-    var matrix = new Matrix(0, 0, 0, 0, x, y);
+    var matrix = new Matrix(1, 0, 0, 1, x, y);
     return this.multiply(matrix);
 };
 
@@ -84,11 +84,11 @@ Matrix.prototype.clockwise = function (degrees, x, y) {
     y = y || 0;
 
     var radians = degrees * DEG2RAD_SCALAR;
-    var matrix1 = this.translate(x, y);
-    var matrix2 = new Matrix(Math.cos(radians), -Math.sin(radians), Math.sin(radians), Math.cos(radians), 0, 0);
-    var matrix3 = this.translate(-x, -y);
+    var translate = new Matrix(1, 0, 0, 1, x, y);
+    var rotate = new Matrix(Math.cos(radians), -Math.sin(radians), Math.sin(radians), Math.cos(radians), 0, 0);
+    var untranslate = new Matrix(1, 0, 0, 1, -x, -y);
 
-    return matrix1.multiply(matrix2).multiply(matrix3);
+    return this.multiply(translate).multiply(rotate).multiply(untranslate);
 };
 
 /**
@@ -117,20 +117,68 @@ Matrix.prototype.counterclockwise = function (degrees, x, y) {
  */
 Matrix.prototype.transform = function (point) {
     return new Point(
-        (this.xScale * point.x) + (this.ySkew * point.y),
-        (this.xSkew * point.x) + (this.yScale * point.y)
+        (this.xScale * point.x) + (this.ySkew * point.y) + this.x,
+        (this.xSkew * point.x) + (this.yScale * point.y) + this.y
     );
 };
 
 /**
  * Apply the matrix to a canvas context.
  * @param context {CanvasRenderingContext2D} A CanvasRenderingContext2D object.
- * @param overwrite {Boolean} If true, the current transform will be overwritten. Otherwise it will be multiplied
+ * @param relative {Boolean} If true, the current canvas transform will be preserved. Otherwise this will overwrite it.
  * with this transform.
  */
-Matrix.prototype.apply = function (context, overwrite) {
-    var fn = overwrite ? context.setTransform : context.transform;
-    fn(this.xScale, this.xSkew, this.ySkew, this.yScale, this.x, this.y);
+Matrix.prototype.apply = function (context, relative) {
+    if (relative) {
+        context.transform(this.xScale, this.xSkew, this.ySkew, this.yScale, this.x, this.y);
+        return;
+    }
+
+    context.setTransform(this.xScale, this.xSkew, this.ySkew, this.yScale, this.x, this.y);
 };
 
 module.exports = Matrix;
+
+/*
+    ==========================
+    Dot Product of 2D Matrices
+    ==========================
+
+    xScale	ySkew	x
+    xSkew	yScale	y
+    0		0		1
+
+    xScale	ySkew	x
+    xSkew	yScale	y
+    0		0		1
+
+    COL 1
+    (xScale * xScale) + (ySkew * xSkew)
+    (xSkew * xScale) + (yScale * xSkew)
+    0
+
+    COL 2
+    (xScale * ySkew) + (ySkew * yScale)
+    (xSkew * ySkew) + (yScale * yScale)
+    0
+
+    COL 3
+    (xScale * x) + (ySkew * y) + x
+    (xSkew * x) + (yScale * y) + y
+    1
+
+    ===============
+    Transform Point
+    ===============
+
+    xScale	ySkew	x
+    xSkew	yScale	y
+    0		0		1
+
+    x
+    y
+    1
+
+    (xScale * x) + (ySkew * y) + x
+    (xSkew * x) + (yScale * y) + y
+ */

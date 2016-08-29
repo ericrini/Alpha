@@ -6,6 +6,8 @@
         this.y = y || 0;
     };
 
+    Alpha.Projectile.prototype = Object.create(Alpha.Actor.prototype);
+
     Alpha.Projectile.prototype.init = function (game) {
         this.radius = game.config.get('Projectile.MIN_RADIUS');
         this.grow = true;

@@ -3,6 +3,8 @@
 
     var Star = function () {};
 
+    Star.prototype = Object.create(Alpha.Actor.prototype);
+
     Star.prototype.init = function (game) {
         this.velocity = Math.floor(Math.random() * game.config.get('Star.MAX_VELOCITY')) + 1;
         this.radius = Math.floor(Math.random() * game.config.get('Star.MAX_RADIUS')) + 1;
@@ -34,6 +36,8 @@
     Alpha.Starfield = function () {
         this.cooldown = 0;
     };
+
+    Alpha.Starfield.prototype = Object.create(Alpha.Actor.prototype);
 
     Alpha.Starfield.prototype.init = function (game) {
         game.config.define('Starfield.DENSITY', 'range', 5, {

@@ -2,19 +2,16 @@ Features
 - Separate the actor coordinate system from the world coordinate system.
 - Add an Actor class to extend.
 - Add bounding boxes and collision detection.
+- Add support for sprites to the actor.
 
 Technical Debt
-- Move the "scene" concept from the Stage class to the Game class.
+- Defining and accessing constants is too verbose.
 - Add a logging\console component.
 - Consolidate the stats, log, config components into a debug overlay.
-- Add support for sprites to the actor.
-- Defining and accessing constants is too verbose.
 
 Finished Work
+- Move the "scene" concept from the Stage class to the Game class.
 - Split the framework apart from the game logic.
 - Move the framework components into Browserify.
 - Get a unit test runner working.
 - Add "scene" concept to the Stage class.
-
-NOTES:
-https://jsfiddle.net/bbz5s183/1/

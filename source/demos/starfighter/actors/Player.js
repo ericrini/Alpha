@@ -9,6 +9,8 @@
         this.cooldown = 0;
     };
 
+    Alpha.Player.prototype = Object.create(Alpha.Actor.prototype);
+
     Alpha.Player.prototype.init = function (game) {
         game.config.define('Player.VELOCITY', 'range', 4, {
             min: 2,
