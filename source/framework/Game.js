@@ -3,18 +3,12 @@
 var Keyboard = require('./Keyboard');
 var Stage = require('./Stage');
 var Stats = require('./Stats');
-var Config = require('./Config');
+var Constants = require('./Constants');
 
 var Game = function () {
+    this.constants = new Constants();
     this.keyboard = new Keyboard();
     this.stage = new Stage(this);
-
-    this.stats = new Stats();
-    this.stage.addActor(this.stats);
-
-    this.config = new Config();
-    this.stage.addActor(this.config);
-
     this.scenes = [];
 };
 
@@ -25,6 +19,8 @@ Game.prototype.defineScene = function (name, strategy) {
 Game.prototype.loadScene = function (name) {
     console.log('Transitioning to scene: "' + name + '".');
     this.stage.clear();
+    this.stage.addActor(new Stats());
+    this.stage.addActor(this.constants);
     this.scenes[name](this.stage);
 };
 
