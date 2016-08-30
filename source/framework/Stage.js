@@ -70,7 +70,7 @@ Stage.prototype.draw = function () {
     for (var i = 0; i < this.actors.length; i++) {
         if (this.actors[i].draw) {
             this.actors[i].getStageMatrix(this.canvas).apply(this.context);
-            this.actors[i].draw(this.context);
+            this.actors[i].draw(this.context, this.game);
 
             if (this.actors[i].drawBoundingBox) {
                 var bounds = this.actors[i].getStageBounds(this.canvas);

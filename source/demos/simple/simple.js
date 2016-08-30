@@ -3,41 +3,30 @@
 
     var game = new Alpha.Game();
 
-    var green = new Alpha.Actor({
-        init: function () {
-            this.x = 0.20;
-            this.y = 0.20;
-            this.scale = 0.20;
-            this.drawBoundingBox = true;
-        },
-        update: function () {
-            this.rotate += 1;
-        },
-        draw: function (context) {
-            context.fillStyle = 'green';
-            context.fillRect(0, 0, 1, 1);
-        }
-    });
+    var Box = function (x, y, scale, color) {
+        this.color = color;
+        this.scale = scale;
+        this.x = x;
+        this.y = y;
+        this.z = 0;
+        this.rotate = 0;
+        this.drawBoundingBox = true;
+    };
 
-    var yellow = new Alpha.Actor({
-        init: function () {
-            this.x = 0.50;
-            this.y = 0.50;
-            this.scale = 0.30;
-            this.drawBoundingBox = true;
-        },
-        update: function () {
-            this.rotate += 1;
-        },
-        draw: function (context) {
-            context.fillStyle = 'yellow';
-            context.fillRect(0, 0, 1, 1);
-        }
-    });
+    Box.prototype = Object.create(Alpha.Actor.prototype);
+
+    Box.prototype.update = function () {
+        this.rotate += 1;
+    };
+
+    Box.prototype.draw = function (context) {
+        context.fillStyle = this.color;
+        context.fillRect(0, 0, 1, 1);
+    };
 
     game.defineScene('boxes', function (stage) {
-        stage.addActor(green);
-        stage.addActor(yellow);
+        stage.addActor(new Box(0.20, 0.20, 0.20, 'cyan'));
+        stage.addActor(new Box(0.50, 0.50, 0.30, 'yellow'));
     });
 
     game.loadScene('boxes');

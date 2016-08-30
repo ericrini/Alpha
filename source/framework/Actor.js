@@ -1,5 +1,6 @@
 'use strict';
 
+var util = require('util');
 var Matrix = require('./math/Matrix');
 var Point = require('./math/Point');
 

@@ -6,8 +6,8 @@
     Star.prototype = Object.create(Alpha.Actor.prototype);
 
     Star.prototype.init = function (game) {
-        this.velocity = Math.floor(Math.random() * game.config.get('Star.MAX_VELOCITY')) + 1;
-        this.radius = Math.floor(Math.random() * game.config.get('Star.MAX_RADIUS')) + 1;
+        this.velocity = Math.floor(Math.random() * game.constants.get('Star.MAX_VELOCITY')) + 1;
+        this.radius = Math.floor(Math.random() * game.constants.get('Star.MAX_RADIUS')) + 1;
         this.alpha = Math.random();
         this.x = Math.floor(Math.random() * game.stage.canvas.width) + 1;
         this.y = -this.radius;
@@ -40,22 +40,22 @@
     Alpha.Starfield.prototype = Object.create(Alpha.Actor.prototype);
 
     Alpha.Starfield.prototype.init = function (game) {
-        game.config.define('Starfield.DENSITY', 'range', 5, {
+        game.constants.define('Starfield.DENSITY', 'range', 5, {
             min: 0,
             max: 30
         });
 
-        game.config.define('Starfield.COOLDOWN', 'range', 15, {
+        game.constants.define('Starfield.COOLDOWN', 'range', 15, {
             min: 10,
             max: 30
         });
 
-        game.config.define('Star.MAX_VELOCITY', 'range', 4, {
+        game.constants.define('Star.MAX_VELOCITY', 'range', 4, {
             min: 0,
             max: 10
         });
 
-        game.config.define('Star.MAX_RADIUS', 'range', 2, {
+        game.constants.define('Star.MAX_RADIUS', 'range', 2, {
             min: 0,
             max: 10
         });
@@ -63,11 +63,11 @@
 
     Alpha.Starfield.prototype.update = function (game) {
         if (0 === this.cooldown) {
-            for (var i = 0; i < game.config.get('Starfield.DENSITY'); i++) {
+            for (var i = 0; i < game.constants.get('Starfield.DENSITY'); i++) {
                 game.stage.addActor(new Star());
             }
 
-            this.cooldown += game.config.get('Starfield.COOLDOWN');
+            this.cooldown += game.constants.get('Starfield.COOLDOWN');
         }
 
         if (this.cooldown > 0) {
