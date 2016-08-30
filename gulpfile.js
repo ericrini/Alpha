@@ -46,7 +46,7 @@ gulp.task('build:copy', function () {
 
 gulp.task('build:bundle', function () {
     var definition = browserify({
-        entries: './source/globals.js',
+        entries: './source/global.js',
         debug: true
     });
 
