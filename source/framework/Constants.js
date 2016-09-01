@@ -4,6 +4,11 @@ var util = require('util');
 var Actor = require('./Actor');
 
 var Constants = function () {
+    this.x = 0;
+    this.y = 0;
+    this.z = 100;
+    this.rotate = 0;
+    this.scale = 0;
     this.properties = {};
     this.element = null;
     this.waitingForRelease = false;

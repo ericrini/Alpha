@@ -11,6 +11,8 @@ var gutil = require('gulp-util');
 var sequence = require('run-sequence');
 var clean = require('gulp-clean');
 var watch = require('gulp-watch');
+var plumber = require('gulp-plumber');
+var argv = require('minimist')(process.argv.slice(2));
 
 var TEST_GLOB = './source/**/*.spec';
 var OUTPUT_PATH = './distribution';
@@ -46,7 +48,7 @@ gulp.task('build:copy', function () {
 
 gulp.task('build:bundle', function () {
     var definition = browserify({
-        entries: './source/globals.js',
+        entries: './source/global.js',
         debug: true
     });
 
@@ -54,7 +56,9 @@ gulp.task('build:bundle', function () {
         .pipe(source('alpha.js'))
         .pipe(buffer())
         .pipe(sourcemaps.init({loadMaps: true}))
-        //.pipe(uglify())
+        .pipe(uglify({
+            mangle: argv.noMangle ? false : true
+        }))
         .on('error', gutil.log)
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(OUTPUT_PATH));
@@ -72,6 +76,7 @@ gulp.task('server', function() {
     });
 
     return gulp.src('./distribution')
+        .pipe(plumber())
         .pipe(webserver({
             livereload: true,
             directoryListing: {

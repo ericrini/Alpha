@@ -1,6 +1,8 @@
 'use strict';
 
-var Matrix = require('./math/Matrix');
+var Matrix = require('./geometry/Matrix');
+var Polygon = require('./geometry/Polygon');
+var Point = require('./geometry/Point');
 
 var Stage = function (game) {
     var _this = this;
@@ -61,6 +63,25 @@ Stage.prototype.update = function (game) {
     }
 };
 
+Stage.prototype.checkCollisions = function (game) {
+    for (var i = 0; i < this.actors.length; i++) {
+        if (this.actors[i].collision) {
+            var left = this.actors[i].getStageBounds(this.canvas);
+
+            for (var j = 0; j < this.actors.length; j++) {
+                if (j !== i) {
+                    var right = this.actors[j].getStageBounds(this.canvas);
+
+                    if (left.intersects(right)) {
+                        console.log('collision', this.actors[i], this.actors[j]);
+                        this.actors[i].collision(this.actors[j], game);
+                    }
+                }
+            }
+        }
+    }
+};
+
 Stage.prototype.draw = function () {
     this.context.setTransform(1, 0, 0, 1, 0, 0);
     this.context.beginPath();
@@ -73,21 +94,34 @@ Stage.prototype.draw = function () {
             this.actors[i].draw(this.context, this.game);
 
             if (this.actors[i].drawBoundingBox) {
-                var bounds = this.actors[i].getStageBounds(this.canvas);
-
                 this.context.setTransform(1, 0, 0, 1, 0, 0);
-                this.context.beginPath();
-                this.context.moveTo(bounds[0].x, bounds[0].y);
-                this.context.lineTo(bounds[1].x, bounds[1].y);
-                this.context.lineTo(bounds[2].x, bounds[2].y);
-                this.context.lineTo(bounds[3].x, bounds[3].y);
-                this.context.closePath();
-                this.context.strokeStyle = 'red';
-                this.context.lineWidth = 3;
-                this.context.stroke();
+                drawBoundingBox.call(this, this.actors[i].getStageBounds(this.canvas));
             }
         }
     }
 };
+
+function getStageBounds(actor) {
+    var matrix = actor.getStageMatrix(this.canvas);
+
+    return new Polygon([
+        matrix.transform(new Point(0, 0)),
+        matrix.transform(new Point(0, 1)),
+        matrix.transform(new Point(1, 1)),
+        matrix.transform(new Point(1, 0))
+    ]);
+}
+
+function drawBoundingBox(polygon) {
+    this.context.beginPath();
+    this.context.moveTo(polygon.vertices[0].x, polygon.vertices[0].y);
+    for (var i = 1; i < polygon.vertices.length; i++) {
+        this.context.lineTo(polygon.vertices[i].x, polygon.vertices[i].y);
+    }
+    this.context.closePath();
+    this.context.strokeStyle = 'red';
+    this.context.lineWidth = 4;
+    this.context.stroke();
+}
 
 module.exports = Stage;
