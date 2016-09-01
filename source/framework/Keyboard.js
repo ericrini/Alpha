@@ -10,14 +10,14 @@ var KEY_MAP = {
     192: '`'
 };
 
-var Keyboard = function () {
+var Keyboard = function (game) {
     var _this = this;
 
     for (var keyCode in KEY_MAP) {
         _this[KEY_MAP[keyCode]] = false;
     }
 
-    document.addEventListener('keydown', function (event) {
+    game.stage.canvas.addEventListener('keydown', function (event) {
         var key = KEY_MAP[event.keyCode];
 
         if (key) {
@@ -26,7 +26,7 @@ var Keyboard = function () {
         }
     });
 
-    document.addEventListener('keyup', function () {
+    game.stage.canvas.addEventListener('keyup', function () {
         var key = KEY_MAP[event.keyCode];
 
         if (key) {
@@ -35,5 +35,7 @@ var Keyboard = function () {
         }
     });
 };
+
+Keyboard.prototype.update = function () {};
 
 module.exports = Keyboard;

@@ -1,5 +1,6 @@
 'use strict';
 
+var Mouse = require('./Mouse');
 var Keyboard = require('./Keyboard');
 var Stage = require('./Stage');
 var Stats = require('./Stats');
@@ -7,8 +8,9 @@ var Constants = require('./Constants');
 
 var Game = function () {
     this.constants = new Constants();
-    this.keyboard = new Keyboard();
     this.stage = new Stage(this);
+    this.keyboard = new Keyboard(this);
+    this.mouse = new Mouse(this);
     this.scenes = [];
 };
 
@@ -30,6 +32,9 @@ Game.prototype.start = function () {
 
     window.requestAnimationFrame(function () {
         _this.stage.update(_this);
+        _this.mouse.update(_this);
+        _this.keyboard.update(_this);
+        _this.stage.checkCollisions(_this);
         _this.stage.draw();
         _this.frameTime = Date.now() - _this.frameStart;
         _this.start();

@@ -14,11 +14,13 @@
     "gulp-clean": "^0.3.2",
     "gulp-jasmine": "^2.4.0",
     "gulp-order": "^1.1.1",
+    "gulp-plumber": "^1.1.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.9",
     "gulp-webserver": "^0.9.1",
+    "minimist": "^1.2.0",
     "run-sequence": "^1.2.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
