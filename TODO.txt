@@ -4,13 +4,31 @@ Features
 
 Technical Debt
 - Defining and accessing constants is too verbose.
+- Break the Canvas initialization and reference out of the Stage class.
 - Add a logging\console component.
 - Consolidate the stats, log, config components into a debug overlay.
 
-Finished Work
-- Separate the actor coordinate system from the world coordinate system.
-- Add an Actor class to extend.
+Features
 - Add bounding boxes and collision detection.
+- Add Mouse event handling.
+- Add support for sprites to the actor.
+
+Design Problems
+- Where should logic dealing with physical stage coordinates live.
+    - The logic needs to know the physical size of the Canvas.
+    - It will be needed by the Stage for collision routines.
+    - It will be needed for an Actor's update logic, for example to determine if it was clicked on.
+    - So is it a responsibility of the Actor of the Stage?
+
+- When an Actor creates another Actor (like a particle or projectile), is the Actor also a Stage?
+    - Likewise, could a Stage be an Actor on a larger Stage?
+    - Why AREN'T Actors and Stages the same thing?
+    - If we separated the Canvas from the Stage, would it become more generalizable?
+
+Finished Work
+- Add bounding boxes and collision detection.
+- Add an Actor class to extend.
+- Separate the actor coordinate system from the world coordinate system.
 - Move the "scene" concept from the Stage class to the Game class.
 - Split the framework apart from the game logic.
 - Move the framework components into Browserify.

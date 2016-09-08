@@ -1,24 +1,26 @@
 {
   "name": "alpha",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.1",
+  "description": "A simple HTML5 canvas framework for 2D games.",
+  "main": "source/commonjs.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Eric Rini",
+  "license": "MIT",
   "devDependencies": {
     "browserify": "^13.1.0",
     "gulp": "^3.9.1",
     "gulp-clean": "^0.3.2",
     "gulp-jasmine": "^2.4.0",
     "gulp-order": "^1.1.1",
+    "gulp-plumber": "^1.1.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-uglify": "^2.0.0",
     "gulp-util": "^3.0.7",
     "gulp-watch": "^4.3.9",
     "gulp-webserver": "^0.9.1",
+    "minimist": "^1.2.0",
     "run-sequence": "^1.2.2",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0"
