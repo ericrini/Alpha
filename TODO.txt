@@ -1,8 +1,6 @@
 Features
-- Separate the actor coordinate system from the world coordinate system.
-- Add an Actor class to extend.
-- Add bounding boxes and collision detection.
-- Add support for sprites to the actor.
+- Need to be able to load SVG.
+- Need to be able to add animations to Actor.
 
 Technical Debt
 - Defining and accessing constants is too verbose.
@@ -10,6 +8,9 @@ Technical Debt
 - Consolidate the stats, log, config components into a debug overlay.
 
 Finished Work
+- Separate the actor coordinate system from the world coordinate system.
+- Add an Actor class to extend.
+- Add bounding boxes and collision detection.
 - Move the "scene" concept from the Stage class to the Game class.
 - Split the framework apart from the game logic.
 - Move the framework components into Browserify.
