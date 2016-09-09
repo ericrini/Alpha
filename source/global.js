@@ -7,5 +7,6 @@
     window.Alpha = {};
     window.Alpha.Game = require('./framework/Game');
     window.Alpha.Actor = require('./framework/Actor');
+    window.Alpha.Animation = require('./framework/animation/Animation')
 }());
 

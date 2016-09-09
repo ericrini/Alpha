@@ -7,7 +7,9 @@ var Stats = require('./Stats');
 var Constants = require('./Constants');
 
 var Game = function () {
-    this.constants = new Constants();
+    this.constants = new Constants(this);
+    this.lastFrame = Infinity;
+    this.frameDelta = Infinity;
     this.stage = new Stage(this);
     this.keyboard = new Keyboard(this);
     this.mouse = new Mouse(this);
@@ -28,17 +30,18 @@ Game.prototype.loadScene = function (name) {
 
 Game.prototype.start = function () {
     var _this = this;
-    this.frameStart = Date.now();
 
-    window.requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
         _this.stage.update(_this);
         _this.mouse.update(_this);
         _this.keyboard.update(_this);
         _this.stage.checkCollisions(_this);
         _this.stage.draw();
-        _this.frameTime = Date.now() - _this.frameStart;
         _this.start();
     });
+
+    this.frameDelta = Date.now() - this.lastFrame;
+    this.lastFrame = Date.now();
 };
 
 module.exports = Game;
