@@ -1,3 +1,7 @@
+Features
+- Need to be able to load SVG.
+- Need to be able to add animations to Actor.
+
 Technical Debt
 - Defining and accessing constants is too verbose.
 - Break the Canvas initialization and reference out of the Stage class.
@@ -22,6 +26,7 @@ Design Problems
     - If we separated the Canvas from the Stage, would it become more generalizable?
 
 Finished Work
+- Add bounding boxes and collision detection.
 - Add an Actor class to extend.
 - Separate the actor coordinate system from the world coordinate system.
 - Move the "scene" concept from the Stage class to the Game class.

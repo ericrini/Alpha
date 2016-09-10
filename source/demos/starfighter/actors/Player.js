@@ -126,12 +126,37 @@
     };
 
     Alpha.Player.prototype.draw = function (context) {
-        context.fillStyle = "#FF0000";
+        context.translate(this.x, this.y);
+
         context.beginPath();
-        context.moveTo(this.x, this.y + 100);
-        context.lineTo(this.x + 100, this.y + 100);
-        context.lineTo(this.x + 50, this.y);
+        context.lineJoin = 'miter';
+        context.strokeStyle = 'rgb(100, 100, 100)';
+        context.lineCap = 'butt';
+        context.lineWidth = 1;
+        context.fillStyle = 'rgb(51, 51, 51)';
+        context.moveTo(49.956660, 0.640007);
+        context.lineTo(0.566443, 49.856277);
+        context.lineTo(30.200573, 99.072373);
+        context.lineTo(49.956660, 69.542577);
+        context.lineTo(69.712748, 99.072373);
+        context.lineTo(99.346882, 49.856277);
+        context.lineTo(49.956660, 0.640007);
         context.fill();
-        context.closePath();
+        context.stroke();
+
+        context.beginPath();
+        context.lineJoin = 'miter';
+        context.strokeStyle = 'rgb(100, 100, 100)';
+        context.lineCap = 'butt';
+        context.lineWidth = 1.000000;
+        context.fillStyle = 'rgb(255, 255, 0)';
+        context.moveTo(49.868272, 26.362197);
+        context.lineTo(24.211418, 57.776377);
+        context.lineTo(49.896077, 46.816277);
+        context.lineTo(74.641243, 58.129977);
+        context.fill();
+        context.stroke();
+
+        context.setTransform(1,0,0,1,0,0);
     };
 }(Alpha));

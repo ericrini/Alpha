@@ -6,11 +6,9 @@ var Mouse = function (game) {
     var _this = this;
 
     this.game = game;
-    this.click;
+    this.click = false;
     this.up = true;
     this.down = false;
-    this.clickX = 0;
-    this.clickY = 0;
     this.x = 0;
     this.y = 0;
 

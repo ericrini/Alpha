@@ -4,12 +4,11 @@
     var game = new Alpha.Game();
 
     var Box = function (x, y, scale, color) {
+        Alpha.Actor.call(this);
         this.original = color;
         this.scale = scale;
         this.x = x;
         this.y = y;
-        this.z = 0;
-        this.rotate = 0;
         this.drawBoundingBox = true;
         this.waitingForRelease = false;
     };
@@ -48,7 +47,7 @@
 
     };
 
-    Box.prototype.collision = function (actor) {
+    Box.prototype.collision = function () {
         this.color = 'red';
     };
 

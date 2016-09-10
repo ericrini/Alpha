@@ -3,6 +3,7 @@
  * globals at all.
  */
 module.exports = {
-    Game: require('./framework'),
-    Actor: require('./Actor')
+    Game: require('./framework/Game'),
+    Actor: require('./framework/Actor'),
+    Animation: require('./framework/animation/Animation')
 };
