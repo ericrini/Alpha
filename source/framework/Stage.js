@@ -101,17 +101,6 @@ Stage.prototype.draw = function () {
     }
 };
 
-function getStageBounds(actor) {
-    var matrix = actor.getStageMatrix(this.canvas);
-
-    return new Polygon([
-        matrix.transform(new Point(0, 0)),
-        matrix.transform(new Point(0, 1)),
-        matrix.transform(new Point(1, 1)),
-        matrix.transform(new Point(1, 0))
-    ]);
-}
-
 function drawBoundingBox(polygon) {
     this.context.beginPath();
     this.context.moveTo(polygon.vertices[0].x, polygon.vertices[0].y);

@@ -4,15 +4,11 @@ var util = require('util');
 var Actor = require('./Actor');
 
 var Stats = function () {
+    Actor.call(this);
     this.x = 0.90;
     this.y = 0.05;
     this.z = 100;
-    this.scale = 0;
-    this.rotate = 0;
-    this.drawBoundingBox = false;
-
     this.actors = 0;
-
     this.lastFrame = Infinity;
     this.frameTime = Infinity;
     this.fps = 0;

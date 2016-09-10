@@ -1,55 +1,67 @@
 (function (Alpha) {
     'use strict';
 
-    // 109 x 202
-    var Zombie = function () {
-        var _this = this;
-
-        this.x = 0;
-        this.y = 0;
-        this.frame = 0;
-        this.image = document.createElement('img');
-
-        this.image.addEventListener('load', function () {
-            _this.ready = true;
-        });
-
-        this.image.src = './images/baseball_zombie_walk.png';
+    var Lydia = function () {
+        Alpha.Actor.call(this);
+        this.width = 64;
+        this.height = 64;
+        this.scale = 0.25;
+        this.drawBoundingBox = true;
+        this.x = 0.5;
+        this.y = 0.5;
     };
 
-    Zombie.prototype = Object.create(Alpha.Actor.prototype);
+    Lydia.prototype = Object.create(Alpha.Actor.prototype);
 
-    Zombie.prototype.draw = function (context) {
-        context.drawImage(this.image, 179 * this.frame, 0, 179, 202, this.x, this.y, 179, 202);
+    Lydia.prototype.init = function (game) {
+        var sprite = game.resources.get('lidia');
+        this.addAnimation('up', new Alpha.Animation(30).addFrames(sprite, 64, 64, 1, 9));
+        this.addAnimation('left', new Alpha.Animation(30).addFrames(sprite, 64, 64, 1, 9, 0, 64));
+        this.animations.left.frames.reverse();
+        this.addAnimation('down', new Alpha.Animation(30).addFrames(sprite, 64, 64, 1, 9, 0, 128));
+        this.addAnimation('right', new Alpha.Animation(30).addFrames(sprite, 64, 64, 1, 9, 0, 192));
+        this.addAnimation('idle', new Alpha.Animation(30).addFrames(sprite, 64, 64, 1, 1, 256, 128));
+        this.setActiveAnimation('idle', true);
+    };
+
+    Lydia.prototype.update = function (game) {
+        Alpha.Actor.prototype.update.call(this, game);
 
         if (game.keyboard.left) {
-            this.x -= 3;
+            this.setActiveAnimation('left');
+            this.x -= 0.01;
         }
 
-        if (game.keyboard.right) {
-            this.x += 3;
+        else if (game.keyboard.right) {
+            this.setActiveAnimation('right');
+            this.x += 0.01;
         }
 
-        if (game.keyboard.up) {
-            this.y -= 3;
+        else if (game.keyboard.up) {
+            this.setActiveAnimation('up');
+            this.y -= 0.01;
         }
 
-        if (game.keyboard.down) {
-            this.y += 3;
+        else if (game.keyboard.down) {
+            this.setActiveAnimation('down');
+            this.y += 0.01;
         }
 
-        if (this.frame + 1 > 7) {
-            this.frame = 0;
-        }
         else {
-            this.frame++;
+            this.setActiveAnimation('idle');
         }
+    };
+
+    Lydia.prototype.draw = function (context) {
+        Alpha.Actor.prototype.draw.call(this, context);
     };
 
     var game = new Alpha.Game();
 
+    game.resources.add('lidia', './lidia.png');
+
     game.defineScene('level 1', function (stage) {
-        stage.addActor(new Zombie());
+        stage.addActor(new Lydia());
     });
 
     game.loadScene('level 1');

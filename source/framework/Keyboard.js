@@ -17,7 +17,7 @@ var Keyboard = function (game) {
         _this[KEY_MAP[keyCode]] = false;
     }
 
-    game.stage.canvas.addEventListener('keydown', function (event) {
+    document.addEventListener('keydown', function (event) {
         var key = KEY_MAP[event.keyCode];
 
         if (key) {
@@ -26,7 +26,7 @@ var Keyboard = function (game) {
         }
     });
 
-    game.stage.canvas.addEventListener('keyup', function () {
+    document.addEventListener('keyup', function () {
         var key = KEY_MAP[event.keyCode];
 
         if (key) {

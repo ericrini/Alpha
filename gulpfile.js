@@ -32,7 +32,7 @@ gulp.task('test', function() {
 });
 
 gulp.task('build', function (callback) {
-    sequence('build:clean', ['build:bundle', 'build:copy'], callback);
+    sequence('build:clean', ['build:bundle', 'build:copy-index', 'build:copy-demo'], callback);
 });
 
 gulp.task('build:clean', function () {
@@ -40,7 +40,12 @@ gulp.task('build:clean', function () {
         .pipe(clean());
 });
 
-gulp.task('build:copy', function () {
+gulp.task('build:copy-index', function () {
+    return gulp.src('./source/index.html')
+        .pipe(gulp.dest('./distribution'));
+});
+
+gulp.task('build:copy-demo', function () {
     return gulp.src('./source/demos/**')
         .pipe(gulp.dest('./distribution/demos'));
 });
@@ -54,13 +59,11 @@ gulp.task('build:bundle', function () {
 
     return definition.bundle()
         .pipe(source('alpha.js'))
-        .pipe(buffer())
-        .pipe(sourcemaps.init({loadMaps: true}))
-        .pipe(uglify({
-            mangle: argv.noMangle ? false : true
-        }))
-        .on('error', gutil.log)
-        .pipe(sourcemaps.write('./'))
+        //.pipe(buffer())
+        //.pipe(sourcemaps.init({loadMaps: true}))
+        //.pipe(uglify())
+        //.on('error', gutil.log)
+        //.pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(OUTPUT_PATH));
 });
 
@@ -79,10 +82,7 @@ gulp.task('server', function() {
         .pipe(plumber())
         .pipe(webserver({
             livereload: true,
-            directoryListing: {
-                path: OUTPUT_PATH,
-                enable: true
-            },
+            directoryListing: false,
             host: '0.0.0.0',
             port: 8000
         }));

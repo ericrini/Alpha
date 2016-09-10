@@ -15,11 +15,14 @@ var Animation = function (frameRate) {
 /**
  * Manually add a draw function for a single frame.
  * @param draw {Function} A draw function.
+ * @returns {Object} The Animation.
  */
 Animation.prototype.addFrame = function (draw) {
-    if ('function' !== typeof(draw)) {
+    if ('function' === typeof(draw)) {
         this.frames.push(draw);
     }
+
+    return this;
 };
 
 /**
@@ -31,6 +34,7 @@ Animation.prototype.addFrame = function (draw) {
  * @param columns (optional) {Number} The number of columns in a multi-cell image.
  * @param x {Number} (optional) The x offset of the first cell in a multi-cell image.
  * @param y {Number} (optional) The x offset of the first cell in a multi-cell image.
+ * @returns {Object} The Animation.
  */
 Animation.prototype.addFrames = function (image, width, height, rows, columns, x, y) {
     if (!image) {
@@ -46,9 +50,7 @@ Animation.prototype.addFrames = function (image, width, height, rows, columns, x
 
     function getDrawFn(image, x, y, width, height) {
         return function (context) {
-            if (this.ready) {
-                context.drawImage(image, x, y, width, height, 0, 0);
-            }
+            context.drawImage(image, x, y, width, height, 0, 0, width, height);
         }
     }
 
@@ -58,6 +60,8 @@ Animation.prototype.addFrames = function (image, width, height, rows, columns, x
             this.addFrame(fn);
         }
     }
+
+    return this;
 };
 
 Animation.prototype.update = function (game) {
@@ -77,6 +81,10 @@ Animation.prototype.update = function (game) {
 
 Animation.prototype.draw = function () {
     this.frames[this.frame].apply(this, arguments);
+};
+
+Animation.prototype.reset = function () {
+    this.frame = 0;
 };
 
 module.exports = Animation;
